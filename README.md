@@ -13,11 +13,9 @@ The goal of this program is to further my learning in relation to mapping librar
 # Development Environment
 The tools I used to develop this software were Visual Studio Code and ArcGIS.
 
-{Describe the programming language that you used and any libraries.}
 I used JavaScript and a little bit of HTML for my program and the ArcGIS mapping library, as well as their Living Atlas.
 # Useful Websites
 
-{Make a list of websites that you found helpful in this project}
 * [ArcGIS.com](https://developers.arcgis.com/)
 * [ChatGPT](chat.openai.com)
 
