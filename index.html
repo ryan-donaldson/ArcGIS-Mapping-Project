@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>ArcGIS Maps SDK for JavaScript Tutorials: Display a map</title>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.28/"></script>
+
+    <script>
+      // Begin making the map
+        require([
+          "esri/config", 
+          "esri/Map", 
+          "esri/views/MapView", 
+          "esri/layers/FeatureLayer"],
+          function(esriConfig, Map, MapView, FeatureLayer) {
+            esriConfig.apiKey = "AAPKf2b9a0aa839843aebd80a008756c8abfvnkR3WVeJ7C8psf8213Ex04ppCr4SI1oXHkDO2J5NWFH8muP9Z-9-McVyontBYiY";
+        
+        // Make a new map.
+        const map = new Map({
+          basemap: "arcgis/topographic" // basemap styles service
+        });
+
+        // Add a feature layer for the weather data.
+        const metarLayer = new FeatureLayer({
+          url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NOAA_METAR_current_wind_speed_direction_v1/FeatureServer",
+          outFields: ["*"],
+          refreshInterval: 5, // Refresh every 5 minutes
+          // Create a popup and format it.
+          popupTemplate: {
+            title: "Station: {STATION_NAME}",
+            content: 
+            [
+              {
+                type: "text",
+                text: "At {OBS_DATETIME}, wind direction is blowing from {WIND_DIRECT} with a speed of {WIND_SPEED} km/h and gusts up to {WIND_GUST} km/h."
+              },
+              {
+                type: "text",
+                text: "The temperature is {TEMP} °F with {R_HUMIDITY}% humidity."
+              },
+              {
+                type: "text",
+                text: "Sky Conditions: {SKY_CONDTN}"
+              },
+              {
+                type: "text",
+                text: "Visibility: {VISIBILITY} m"
+              }
+            ]
+          }
+        });
+
+        const view = new MapView({
+          map: map,
+          center: [-111.7924, 43.8231], // Longitude, latitude
+          zoom: 13, // Zoom level
+          container: "viewDiv" // Div element
+        });
+        
+
+        map.add(metarLayer);
+
+        });
+      </script>
+
+  </head>
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>
